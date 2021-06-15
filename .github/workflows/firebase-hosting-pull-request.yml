@@ -38,8 +38,6 @@ jobs:
           channel: "stable"
       - run: flutter pub get
       - run: flutter build web
-      - run: npm ci
-      - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
