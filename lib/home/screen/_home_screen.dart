@@ -1,7 +1,14 @@
 
+import 'dart:math' as math;
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:iandis/home/cubit/home_screen_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '/constants/app_props.dart';
+import '/home/cubit/home_screen_cubit.dart';
+import '/models/certificate_model.dart';
 
 part 'home_screen_props.dart';
 part 'home_screen_widgets.dart';
@@ -11,139 +18,65 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends _HomeScreenProps {
+class _HomeScreenState extends _HomeScreenProps with _HomeScreenWidgets {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-        child: LayoutBuilder(
-          builder: (context, constraints) { 
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                /// hi ...
-                _AdaptiveText(
-                  _homeScreenCubit.state.title,
-                  constraints: constraints,
-                  fontSizeOnSmallScreen: 30,
-                  fontSizeOnBigScreen: 45,
-                  textAlign: TextAlign.center,
-                  textStyle: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Divider(
-                  height: 20,
-                ),
+    return LayoutBuilder(
+      builder: (context, constraints) { 
+        debugPrint(constraints.maxWidth.toString());
+        late final double xPadding;
+        if(kIsWeb) {
+          xPadding = (math.max(0.0, constraints.maxWidth - 810.0) / 2) + 30.0;
+        }else{
+          xPadding = 30.0;
+        }
+        return Scaffold(
+          backgroundColor: Colors.lightBlue[100],
+          body: Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(xPadding - 20, 0.0, xPadding - 20, 0.0),
+                color: Colors.lightBlue[50],
+              ),
+              CustomScrollView(
+                physics: BouncingScrollPhysics(),
+                slivers: [
 
-                /// college hat emoji
-                _AdaptiveText(
-                  '🎓',
-                  constraints: constraints,
-                  fontSizeOnSmallScreen: 20,
-                  fontSizeOnBigScreen: 25,
-                  textAlign: TextAlign.center,
-                ),
-
-                /// currently majoring ...
-                _AdaptiveText(
-                  'Currently majoring in Computer Science at Gunadarma University',
-                  constraints: constraints,
-                  fontSizeOnSmallScreen: 20,
-                  fontSizeOnBigScreen: 25,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                
-                FlutterLogo(),
-                /// flutter is my favourite ...
-                _AdaptiveText(
-                  'Flutter is my favourite framework for building apps!',
-                  constraints: constraints,
-                  fontSizeOnSmallScreen: 20,
-                  fontSizeOnBigScreen: 25,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-
-                /// 'hit me up'
-                _AdaptiveText(
-                  'Hit me up 😉',
-                  constraints: constraints,
-                  fontSizeOnSmallScreen: 20,
-                  fontSizeOnBigScreen: 25,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-
-                /// linkedin button
-                ElevatedButton(
-                  onPressed: _homeScreenCubit.openLinkedIn,
-                  child: Text(
-                    'LinkedIn',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  _profileSection(xPadding, constraints),
+                  
+                  _certificateSection(xPadding, constraints),
+            
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 40,
+                    ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey[200],
-                    onPrimary: Colors.blue[900],
-                    elevation: 0,
-                    shadowColor: Colors.transparent,
-                    fixedSize: Size.fromHeight(60),
+            
+                  /// app version
+                  SliverToBoxAdapter(
+                    child: _AdaptiveText(
+                      'v${AppProps.appVersion}',
+                      constraints: constraints,
+                      fontSizeOnSmallScreen: 10,
+                      fontSizeOnBigScreen: 10,
+                      textAlign: TextAlign.center,
+                      selectable: false,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-
-                /// github button
-                ElevatedButton(
-                  onPressed: _homeScreenCubit.openGitHub,
-                  child: Text(
-                    'GitHub',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 20,
+                    ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue[900],
-                    onPrimary: Colors.grey[200],
-                    elevation: 0,
-                    shadowColor: Colors.transparent,
-                    fixedSize: Size.fromHeight(60),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-
-                /// email button
-                TextButton(
-                  onPressed: _homeScreenCubit.openEmail,
-                  child: Text(
-                    'iandisantulusn@gmail.com',
-                  ),
-                ),
-                SizedBox(height: 100,),
-                /// built with flutter
-                _AdaptiveText(
-                  'built with Flutter',
-                  constraints: constraints,
-                  fontSizeOnSmallScreen: 12,
-                  fontSizeOnBigScreen: 16,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 20,),
-              ],
-            );
-          }
-        ),
-      ),
+                  
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
+
 }

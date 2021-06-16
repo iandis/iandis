@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:iandis/models/certificate_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '/constants/app_urls.dart';
@@ -11,8 +12,8 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   final ScreenUtilsRepo screenUtilsRepo;
   HomeScreenCubit({required this.screenUtilsRepo}) : super(HomeScreenState.init());
 
-  void openLinkedIn() async {
-    if(await canLaunch(AppUrls.linkedIn)){
+  void openLinkedIn({bool test = false}) async {
+    if(await canLaunch(AppUrls.linkedIn) && !test){
       await launch(AppUrls.linkedIn);
     }else{
       screenUtilsRepo.showMessageDialog(
@@ -22,8 +23,8 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     }
   }
 
-  void openGitHub() async {
-    if(await canLaunch(AppUrls.githubRepository)){
+  void openGitHub({bool test = false}) async {
+    if(await canLaunch(AppUrls.githubRepository) && !test){
       await launch(AppUrls.githubRepository);
     } else {
       screenUtilsRepo.showMessageDialog(
@@ -41,5 +42,17 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
       queryParameters: {'subject': 'Hi'}
     );
     launch(_emailLaunchUri.toString());
+  }
+
+  void openCertificateUrl(int index, {bool test = false}) async {
+    if(await canLaunch(state.certificates[index].url) && !test){
+      await launch(state.certificates[index].url);
+    } else {
+      screenUtilsRepo.showMessageDialog(
+        message:
+            'I\'m sorry there\'s something wrong when trying to open up my certificate credential :(',
+        dialogType: DialogType.error,
+      );
+    }
   }
 }

@@ -34,7 +34,9 @@ class App extends StatelessWidget {
           navigatorKey: ScreenUtilsRepo.navigatorKey,
           scaffoldMessengerKey: ScreenUtilsRepo.messengerKey,
           theme: ThemeData(
-            primarySwatch: Colors.lightBlue,
+            primaryColor: Colors.blue[900],
+            accentColor: Colors.orange,
+            errorColor: Colors.red[900],
             visualDensity: VisualDensity.adaptivePlatformDensity,
             fontFamily: 'Nunito Sans'
           ),
