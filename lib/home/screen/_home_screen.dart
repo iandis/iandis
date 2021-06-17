@@ -23,7 +23,7 @@ class _HomeScreenState extends _HomeScreenProps with _HomeScreenWidgets {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) { 
-        debugPrint(constraints.maxWidth.toString());
+        // debugPrint(constraints.maxWidth.toString());
         late final double xPadding;
         if(kIsWeb) {
           xPadding = (math.max(0.0, constraints.maxWidth - 810.0) / 2) + 30.0;

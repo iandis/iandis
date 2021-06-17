@@ -1,5 +1,7 @@
 
 class AppProps {
-  static const String appVersion = '1.0.1+1';
-  static const double minScreenWidthToRebuild = 600;
+  static const String appVersion = '1.0.2+3';
+  static const double minDesktopScreenWidth = 640;
+  static const double minMobileScreenWidth = 480;
+  static const double minSmallMobileScreenWidth = 360;
 }

@@ -13,9 +13,9 @@ void main() {
       final certificates = HomeScreenState.init().certificates;
       /// finders
       final titleFinder = find.text('Hi,\nMy name is Iandi Santulus');
-      final collegeTextFinder = find.text('🎓\nCurrently majoring in Computer Science at Gunadarma University');
+      final collegeTextFinder = find.text('Currently majoring in Computer Science at Gunadarma University');
       final favFlutterTextFinder = find.text('Flutter is my favourite framework for building apps!');
-      final socialLinkTextFinder = find.text('🤳 Social Links');
+      final socialLinkTextFinder = find.text('Social Links');
       final linkedInTextFinder = find.text('LinkedIn');
       final gitHubTextFinder = find.text('GitHub');
       final emailTextFinder = find.text('iandisantulusn@gmail.com');
@@ -50,6 +50,6 @@ void main() {
       expect(appVersionTextFinder, findsOneWidget);
 
     },
-    timeout: Timeout(Duration(seconds: 30)),
+    timeout: Timeout(Duration(seconds: 60)),
   );
 }

@@ -2,7 +2,7 @@ name: iandis
 description: Iandi Santulus' portfolio web app
 
 publish_to: 'none' 
-version: 1.0.1+2
+version: 1.0.2+3
 
 environment:
   sdk: ">=2.13.0 <3.0.0"
@@ -34,7 +34,6 @@ flutter:
         - asset: assets/fonts/NunitoSans-Regular.ttf
         - asset: assets/fonts/NunitoSans-Bold.ttf
           weight: 700
-
   
   
   
