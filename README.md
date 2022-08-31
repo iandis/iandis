@@ -1,4 +1,4 @@
 # Welcome!
-### My name is Iandi Santulus. I'm a 3rd year student currently pursuing a bachelor's in Comp-Sci.
+### My name is Iandi Santulus. I'm a Mobile Developer mainly working with Flutter.
 
 I love building apps with Flutter!
